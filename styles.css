@@ -1,0 +1,20 @@
+html, body {
+  margin: 0;
+  height: 100%; /* fills the container (window) */
+}
+header {
+  display: flex;
+  justify-content: left;
+  align-self: center;
+  background-color: black;
+  color: white;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 2rem;
+  height: 5%;
+}
+#c {
+  width: 100%; /* fills the container (body) */
+  height: 95%;
+  display: block;
+  z-index: 21;
+}
