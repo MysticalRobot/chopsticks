@@ -1,7 +1,11 @@
 # chopsticks
 
-rigged hand credit:
-"Rigged Lowpoly Hand" (https://skfb.ly/6RoCG) by JanoschR is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+the game of chopsticks reimagined
 
-original hand credit:
-"Hand (low poly)" (https://skfb.ly/Dr9p) by scribbletoad is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+## credits
+
+1. ["Hand (low poly)"] (https://skfb.ly/Dr9p "sketchfab.com") by scribbletoad is licensed under [Creative Commons Attribution] (http://creativecommons.org/licenses/by/4.0/ "license").
+2. ["Rigged Lowpoly Hand"] (https://skfb.ly/6RoCG "sketchfab.com") by JanoschR 
+is licensed under [Creative Commons Attribution]
+(http://creativecommons.org/licenses/by/4.0/ "license").
+3. hand poses and animations by me

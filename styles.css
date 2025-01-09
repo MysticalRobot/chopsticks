@@ -12,7 +12,7 @@ header {
   font-size: 2rem;
   height: 5%;
 }
-#c {
+canvas {
   width: 100%; /* fills the container (body) */
   height: 95%;
   display: block;
