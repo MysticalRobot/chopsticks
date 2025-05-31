@@ -1,0 +1,49 @@
+html, body {
+  height: 100%; /* fills the container (window) */
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: black;
+  color: white;
+  margin: 0;
+}
+header {
+  font-size: xx-large;
+  padding: 0.75rem;
+}
+canvas {
+  width: 100%; /* fills the container (body) */
+  height: 55%;
+  display: block;
+}
+.menuContainer {
+  display: flex;
+  justify-content: center;
+}
+.menu {
+  height: 37.23%;
+  max-width: 30rem;
+  display: grid;  
+  grid-template-rows: 0.5fr repeat(3, 1fr) 0.5fr;
+  grid-template-columns: 0.5fr repeat(3, 1fr) 0.5fr;
+}
+.menu > p {
+  text-align: justify;
+  font-size: larger;
+}
+.rowOne {
+  grid-row: 2;
+}
+.rowTwo {
+  grid-row: 3;
+}
+.rowThree {
+  grid-row: 4;
+}
+.colOne {
+  grid-column: 2;
+}
+.colTwo {
+  grid-column: 3;
+}
+.colThree {
+  grid-column: 4;
+}
