@@ -1,35 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="./styles.css">
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "./path/to/three.module.js",
-        "three/addons/": "./different/path/to/examples/jsm/"
-      }
-    }
-  </script>
-  <script type="module" src="./script.mts"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="./styles.css">
+	<script type="importmap">
+		{
+			"imports": {
+				"three": "./path/to/three.module.js",
+				"three/addons/": "./different/path/to/examples/jsm/"
+			}
+		}
+		</script>
+	<script type="module" src="./script.mts"></script>
 </head>
+
 <body>
-  <header>chopsticks</header>
-  <canvas id="c" tabindex="0"></canvas>
-  <div class="menuContainer">
-    <div class="menu">
-      <p class="rowOne colOne">Input Method:</p>
-      <button class="rowOne colTwo">Select and Drag</button>
-      <button class="rowOne colThree">Gesture</button>
-      <p class="rowTwo colOne">Game Mode:</p>
-      <button class="rowTwo colTwo">1p</button>
-      <button class="rowTwo colThree">2p</button>
-      <p class="rowThree colOne">Controls:</p>
-      <button class="rowThree colTwo">Forfeit and Reset</button>
-      <button class="rowThree colThree">Start</button>
-    </div>
-  </div>
+	<header>chopsticks</header>
+	<canvas id="c" tabindex="0"></canvas>
 </body>
+
 </html>

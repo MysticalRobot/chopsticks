@@ -2,17 +2,20 @@
 
 the game of chopsticks reimagined
 
-## early look
+## early look (outdated)
 
 ![preview of game](./early-look.png "is this tuff group leader?")
 
-## features (more like a todo)
+## todo
 
-- single player (vs bot)
-- multiplayer (2 players)
-  - local (i.e. on the same computer)
-  - online
-- control in-game hand via irl gestures
+- [ ] local (i.e. on the same computer)
+    - [ ] game, player, ruleset
+    - [ ] animations 
+    - [ ]
+- [ ] single player (vs bot)
+- [ ] multiplayer (online)
+- [ ] control in-game hands via irl gestures
+- [ ]
 
 ## credits
 
