@@ -9,28 +9,36 @@ import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 
-// hand setup
+// scene setup
 const scene = new THREE.Scene();
+const plane = new THREE.Mesh(new THREE.PlaneGeometry(20, 20));
+plane.visible = false;
+plane.rotation.x = -Math.PI / 2;
+plane.position.set(0, 0, 0);
+scene.add(plane);
 const white = 0x9e9e9e;
 const black = 0x4a4a4a;
-let model: THREE.Object3D;
-let animations: Array<THREE.AnimationClip>;
+let model: THREE.Object3D | undefined = undefined;
+let animations: Array<THREE.AnimationClip> | undefined = undefined;
 const mixers: Array<THREE.AnimationMixer> = [];
 const hands: Array<THREE.Object3D> = [];
+const materials: Array<THREE.MeshLambertMaterial> = [];
 function createHand(name: string, position: Array<number>, color: number, y_rotation: number, x_scale: number) {
+	// this method is called after the model has loaded
 	const dupe = clone(model); // deep copy
+	mixers.push(new THREE.AnimationMixer(dupe));
+	hands.push(dupe);
 	dupe.name = name;
 	dupe.position.set(...position);
 	dupe.rotateY(y_rotation);
 	dupe.scale.x *= x_scale;
 	dupe.traverse((child: THREE.Object3D) => {
 		if (child instanceof THREE.Mesh) {
-			child.material = new THREE.MeshLambertMaterial({ color });
+			materials.push(new THREE.MeshLambertMaterial({ color, transparent: true, opacity: 1 }));
+			child.material = materials[materials.length - 1];
 		}
 	});
 	scene.add(dupe);
-	mixers.push(new THREE.AnimationMixer(dupe));
-	hands.push(dupe);
 }
 function createHands() {
 	createHand('l1', [-1, 0, 1.5], white, Math.PI, -1);
@@ -91,33 +99,71 @@ composer.addPass(effectFXAA);
 
 // hand click event handling 
 const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-let selectedHands: Array<THREE.Object3D> = [];
-function updateHands(event) {
+const pointer = new THREE.Vector2();
+let selectedHand: THREE.Object3D | undefined = undefined;
+let originalPosition: THREE.Vector3 | undefined = undefined;
+let pressed = false;
+function computePointerIntersections(event: PointerEvent, objects: Array<THREE.Object3D>) {
 	const rect = renderer.domElement.getBoundingClientRect();
-	mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-	mouse.y = - ((event.clientY - rect.top) / rect.height) * 2 + 1;
-	// update the picking ray with the camera and mouse position
-	raycaster.setFromCamera(mouse, camera);
+	pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+	pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+	// update the picking ray with the camera and pointer position
+	raycaster.setFromCamera(pointer, camera);
 	// calculate objects intersecting the picking ray
-	const intersections = raycaster.intersectObjects(scene.children);
+	return raycaster.intersectObjects(objects);
+}
+function updateHands(event: PointerEvent) {
+	const intersections = computePointerIntersections(event, scene.children);
 	if (intersections.length === 0) {
 		return;
 	}
-	const name = intersections[0].object!.parent!.parent!.name; // cooked
-	// toggle hand selection
-	const oldLength = selectedHands.length;
-	selectedHands = selectedHands.filter((hand) => { return hand.name != name; });
-	if (oldLength === selectedHands.length) {
-		const hand = hands.find((hand) => { return hand.name === name; });
-		if (hand === undefined) {
-			return;
+	const names = intersections.map((int) => {
+		if (int.object !== plane) {
+			// at this point, a hand must have been clicked on
+			return int.object.parent.parent.name;
 		}
-		selectedHands.push(hand);
+	});
+	const selectedHands = hands.filter((hand) => { return names.includes(hand.name); });
+	if (selectedHand !== undefined) {
+		// the ray will always intersect with the plane
+		const planeIntersection = intersections.find((int) => { return int.object === plane }).point;
+		selectedHand.position.set(planeIntersection.x, selectedHand.position.y, planeIntersection.z);
+		if (!selectedHands.includes(selectedHand)) {
+			selectedHands.push(selectedHand);
+		}
 	}
 	outlinePass.selectedObjects = selectedHands;
 }
-canvas.addEventListener('click', updateHands);
+function selectHand(event: PointerEvent) {
+	const intersections = computePointerIntersections(event, hands);
+	if (intersections.length === 0) {
+		return;
+	}
+	// at this point, a hand must have been clicked on
+	const name = intersections[0].object.parent.parent.name;
+	const newSelectedHand = hands.find((hand) => { return hand.name === name });
+	if (selectedHand !== undefined && selectedHand != newSelectedHand) {
+		// originalPosition is set/unset whenever selectedHand is
+		selectedHand.position.set(...originalPosition);
+	}
+	originalPosition = newSelectedHand !== undefined ? new THREE.Vector3(...newSelectedHand.position) : undefined;
+	selectedHand = newSelectedHand;
+	pressed = true;
+}
+function deselectHand() {
+	// reset position and clear selection
+	if (selectedHand !== undefined) {
+		// originalPosition is set/unset whenever selectedHand is
+		selectedHand.position.set(...originalPosition);
+	}
+	originalPosition = undefined;
+	selectedHand = undefined;
+	pressed = false;
+}
+canvas.addEventListener('pointermove', updateHands);
+canvas.addEventListener('pointerdown', selectHand);
+canvas.addEventListener('pointerup', deselectHand);
+canvas.addEventListener('pointerleave', deselectHand);
 
 // this eliminates blurriness by ensuring that there is a px rendered for every px on the canvas
 function resizeRendererToDisplaySize(canvas: HTMLCanvasElement): boolean {
