@@ -1,16 +1,26 @@
-html, body {
-  height: 100%; /* fills the container (window) */
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  background-color: black;
-  color: white;
-  margin: 0;
+html,
+body {
+	height: 100%;
+	/* fills the container (window) */
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	background-color: black;
+	color: white;
+	margin: 0;
 }
+
+body {
+	touch-action: none;
+	overscroll-behavior: contain;
+}
+
 header {
-  font-size: xx-large;
-  padding: 0.75rem;
+	font-size: xx-large;
+	padding: 0.75rem;
 }
+
 canvas {
-  width: 100%; /* fills the container (body) */
-  height: 55%;
-  display: block;
+	width: 100%;
+	/* fills the container (body) */
+	height: 55%;
+	display: block;
 }
