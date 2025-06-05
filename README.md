@@ -9,13 +9,28 @@ the game of chopsticks reimagined
 ## todo
 
 - [ ] local (i.e. on the same computer)
-    - [ ] game, player, ruleset
-    - [ ] animations 
-    - [ ]
+    - [ ] game
+        - [ ] gamemode (local, online, bot)
+        - [ ] makeMove()
+        - [ ] two players
+        - [ ] ruleset
+        - [ ] turns
+        - [ ] only allow current player to move their hand
+    - [ ] hands
+        - [ ] Object3D
+        - [ ] materials
+        - [ ] mixer 
+        - [ ] fingers
+    - [ ] ruleset
+        - [ ] isValidMove()
+        - [ ] isGameOver()
+    - [ ] animations
+    - [ ] highlight possible moves when dragging hand
+    - [ ] make material translucent when hand gets close to other hand
+    - [ ] 
 - [ ] single player (vs bot)
 - [ ] multiplayer (online)
 - [ ] control in-game hands via irl gestures
-- [ ]
 
 ## credits
 
