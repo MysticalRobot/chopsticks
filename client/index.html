@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<link rel="stylesheet" href="./styles.css">
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "./path/to/three.module.js",
+					"three/addons/": "./different/path/to/examples/jsm/"
+				}
+			}
+		</script>
+		<script type="module" src="./script.mts"></script>
+	</head>
+
+	<body>
+		<header>chopsticks</header>
+		<canvas id="c" tabindex="0"></canvas>
+		<div id="divisionAndTransferMenu">
+			<p>how many fingers would you like to keep on the selected hand?</p>
+			<div id="numFingersOptions">
+				<button>0</button>
+				<button>1</button>
+				<button>2</button>
+				<button>3</button>
+				<button>4</button>
+				<button>5</button>
+			</div>
+		</div>
+	</body>
+
+</html>

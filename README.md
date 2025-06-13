@@ -25,6 +25,7 @@ the game of chopsticks reimagined
         - [ ] isValidMove()
         - [ ] isGameOver()
     - [ ] animations
+    - [ ] drag to make move
     - [ ] highlight possible moves when dragging hand
     - [ ] make material translucent when hand gets close to other hand
     - [ ] 
